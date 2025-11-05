@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheda di Valutazione Ristorante</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            background: #1a1a1a url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%231a1a1a"/><g fill="%23222" opacity="0.3"><circle cx="10" cy="10" r="1"/><circle cx="30" cy="20" r="1"/><circle cx="50" cy="10" r="1"/><circle cx="70" cy="25" r="1"/><circle cx="90" cy="15" r="1"/><circle cx="20" cy="40" r="1"/><circle cx="60" cy="35" r="1"/><circle cx="80" cy="45" r="1"/><circle cx="15" cy="65" r="1"/><circle cx="45" cy="60" r="1"/><circle cx="75" cy="70" r="1"/><circle cx="35" cy="85" r="1"/><circle cx="65" cy="90" r="1"/><circle cx="85" cy="80" r="1"/></g></svg>');
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
+            border-radius: 2px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 1px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #d4af37;
+        }
+        
+        .decorative-line {
+            width: 60px;
+            height: 1px;
+            background: #d4af37;
+            margin: 15px auto;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            color: #d4af37;
+            margin-bottom: 8px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .header p {
+            font-size: 14px;
+            color: #b8b8b8;
+            font-style: italic;
+            letter-spacing: 2px;
+            font-family: 'Georgia', serif;
+        }
+        
+        .intro {
+            padding: 50px 50px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .intro h2 {
+            color: #2c2c2c;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        
+        .intro p {
+            color: #666;
+            line-height: 1.9;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 15px;
+            font-family: 'Georgia', serif;
+        }
+        
+        .scoring-info {
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 0;
+            margin-top: 30px;
+            border: 1px solid #e8e8e8;
+            border-left: 3px solid #d4af37;
+        }
+        
+        .scoring-info h3 {
+            color: #2c2c2c;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .scoring-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .scoring-info li {
+            padding: 12px 0;
+            color: #444;
+            font-size: 14px;
+            line-height: 1.7;
+            font-family: 'Georgia', serif;
+            border-bottom: 1px dotted #ddd;
+        }
+        
+        .scoring-info li:last-child {
+            border-bottom: none;
+        }
+        
+        .scoring-info li:before {
+            content: "✦";
+            margin-right: 12px;
+            color: #d4af37;
+        }
+        
+        .max-points {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
+            color: #2c2c2c;
+            letter-spacing: 1px;
+            font-size: 15px;
+        }
+        
+        .restaurant-section {
+            padding: 50px 50px;
+            background: #ffffff;
+        }
+        
+        .restaurant-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .restaurant-header h3 {
+            font-size: 32px;
+            color: #2c2c2c;
+            margin-bottom: 10px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        
+        .restaurant-header p {
+            font-size: 16px;
+            color: #888;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+        }
+        
+        .criteria-list {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+        
+        .criterion {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 25px;
+            background: #fafafa;
+            border-left: 3px solid #d4af37;
+            transition: all 0.3s;
+        }
+        
+        .criterion:hover {
+            background: #f5f5f5;
+            transform: translateX(5px);
+        }
+        
+        .criterion-icon {
+            font-size: 36px;
+            width: 60px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .criterion-info {
+            flex: 1;
+        }
+        
+        .criterion-name {
+            font-weight: 400;
+            color: #2c2c2c;
+            font-size: 18px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .criterion-desc {
+            font-size: 13px;
+            color: #888;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+        }
+        
+        .score-input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .score-input {
+            width: 90px;
+            height: 60px;
+            font-size: 28px;
+            font-weight: 300;
+            text-align: center;
+            border: 2px solid #d4af37;
+            border-radius: 0;
+            color: #2c2c2c;
+            background: white;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            transition: all 0.3s;
+        }
+        
+        .score-input:focus {
+            outline: none;
+            border-color: #2c2c2c;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .max-score {
+            font-size: 12px;
+            color: #999;
+            letter-spacing: 1px;
+        }
+        
+        .total-section {
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            padding: 50px 50px;
+            margin-top: 50px;
+            text-align: center;
+            border-top: 2px solid #d4af37;
+        }
+        
+        .total-label {
+            font-size: 20px;
+            font-weight: 400;
+            color: #d4af37;
+            margin-bottom: 25px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .total-display {
+            display: inline-block;
+            background: white;
+            padding: 30px 50px;
+            border-radius: 0;
+            border: 2px solid #d4af37;
+        }
+        
+        .total-input {
+            width: 150px;
+            height: 80px;
+            font-size: 48px;
+            font-weight: 300;
+            text-align: center;
+            border: none;
+            color: #2c2c2c;
+            background: transparent;
+            font-family: 'Playfair Display', 'Georgia', serif;
+        }
+        
+        .total-input:focus {
+            outline: none;
+        }
+        
+        .total-max {
+            font-size: 16px;
+            color: #888;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .verdict-section {
+            padding: 50px;
+            background: #fafafa;
+            border-top: 1px solid #e8e8e8;
+        }
+        
+        .verdict-title {
+            text-align: center;
+            font-size: 22px;
+            color: #2c2c2c;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .verdict-box {
+            background: white;
+            border: 1px solid #e8e8e8;
+            border-left: 3px solid #d4af37;
+            padding: 30px;
+        }
+        
+        .verdict-box textarea {
+            width: 100%;
+            min-height: 120px;
+            border: 1px solid #e8e8e8;
+            padding: 20px;
+            font-size: 15px;
+            color: #444;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            resize: vertical;
+            background: #fafafa;
+        }
+        
+        .verdict-box textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: white;
+        }
+        
+        .verdict-box textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .footer {
+            background: #1a1a1a;
+            color: #888;
+            text-align: center;
+            padding: 30px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .intro, .restaurant-section, .verdict-section {
+                padding: 30px 25px;
+            }
+            
+            .criterion {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Valutazione</h1>
+            <div class="decorative-line"></div>
+            <p>Esperienza Culinaria</p>
+        </div>
+        
+        <div class="intro">
+            <h2>Istruzioni per la Valutazione</h2>
+            <p>Valuta la tua esperienza gastronomica secondo i quattro criteri fondamentali dell'alta ristorazione.</p>
+            <p>Assegna un punteggio da 0 a 10 per ogni aspetto, dove 0 rappresenta un'esperienza insoddisfacente e 10 l'eccellenza assoluta.</p>
+            
+            <div class="scoring-info">
+                <h3>Criteri di Valutazione</h3>
+                <ul>
+                    <li><strong>Location & Ambiente:</strong> Posizione del locale, facilità di accesso, eleganza degli interni, comfort generale (0-10 punti)</li>
+                    <li><strong>Servizio:</strong> Professionalità del personale, tempistiche, cortesia, attenzione al cliente (0-10 punti)</li>
+                    <li><strong>Qualità dei Piatti:</strong> Qualità degli ingredienti, preparazione, presentazione, sapori dei piatti ordinati (0-10 punti)</li>
+                    <li><strong>Atmosfera & Esperienza:</strong> Romanticità, intimità, musica, illuminazione, feeling complessivo della serata (0-10 punti)</li>
+                </ul>
+                <div class="max-points">PUNTEGGIO MASSIMO: 40 PUNTI</div>
+            </div>
+        </div>
+        
+        <div class="restaurant-section">
+            <div class="restaurant-header">
+                <h3>[Nome Ristorante]</h3>
+                <p>Tipo di cucina • Zona</p>
+            </div>
+            
+            <div class="criteria-list">
+                <div class="criterion">
+                    <div class="criterion-icon">🏛️</div>
+                    <div class="criterion-info">
+                        <div class="criterion-name">Location & Ambiente</div>
+                        <div class="criterion-desc">Posizione, accessibilità ed eleganza degli spazi</div>
+                    </div>
+                    <div class="score-input-container">
+                        <input type="number" class="score-input" id="score1" min="0" max="10" placeholder="0">
+                        <div class="max-score">/10</div>
+                    </div>
+                </div>
+                
+                <div class="criterion">
+                    <div class="criterion-icon">🎩</div>
+                    <div class="criterion-info">
+                        <div class="criterion-name">Servizio</div>
+                        <div class="criterion-desc">Professionalità e attenzione del personale</div>
+                    </div>
+                    <div class="score-input-container">
+                        <input type="number" class="score-input" id="score2" min="0" max="10" placeholder="0">
+                        <div class="max-score">/10</div>
+                    </div>
+                </div>
+                
+                <div class="criterion">
+                    <div class="criterion-icon">🍽️</div>
+                    <div class="criterion-info">
+                        <div class="criterion-name">Qualità dei Piatti</div>
+                        <div class="criterion-desc">Ingredienti, preparazione e sapori</div>
+                    </div>
+                    <div class="score-input-container">
+                        <input type="number" class="score-input" id="score3" min="0" max="10" placeholder="0">
+                        <div class="max-score">/10</div>
+                    </div>
+                </div>
+                
+                <div class="criterion">
+                    <div class="criterion-icon">✨</div>
+                    <div class="criterion-info">
+                        <div class="criterion-name">Atmosfera & Esperienza</div>
+                        <div class="criterion-desc">Romanticità e feeling complessivo</div>
+                    </div>
+                    <div class="score-input-container">
+                        <input type="number" class="score-input" id="score4" min="0" max="10" placeholder="0">
+                        <div class="max-score">/10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="total-section">
+            <div class="total-label">Punteggio Totale</div>
+            <div class="total-display">
+                <input type="number" class="total-input" id="totalScore" min="0" max="40" placeholder="0" readonly>
+                <div class="total-max">/40 PUNTI</div>
+            </div>
+        </div>
+        
+        <div class="verdict-section">
+            <div class="verdict-title">Note e Impressioni</div>
+            <div class="verdict-box">
+                <textarea placeholder="Scrivi qui le tue impressioni generali sulla serata, piatti preferiti, momenti memorabili o qualsiasi altro commento..."></textarea>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Scheda di Valutazione Esperienza Gastronomica • Edizione Speciale "Premio di Consolazione"</p>
+        </div>
+    </div>
+    
+    <script>
+        const scoreInputs = [
+            document.getElementById('score1'),
+            document.getElementById('score2'),
+            document.getElementById('score3'),
+            document.getElementById('score4')
+        ];
+        const totalInput = document.getElementById('totalScore');
+        
+        function calculateTotal() {
+            let total = 0;
+            scoreInputs.forEach(input => {
+                const value = parseInt(input.value) || 0;
+                total += Math.min(Math.max(value, 0), 10);
+            });
+            totalInput.value = total;
+        }
+        
+        scoreInputs.forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+    </script>
+</body>
+</html>
