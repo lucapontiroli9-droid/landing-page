@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invito Ufficiale - Spicy B</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #8b7355, transparent);
+        }
+        
+        .invitation-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #bdc3c7;
+            letter-spacing: 1px;
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .intro-text h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        .intro-text p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 10px;
+        }
+        
+        .intro-subtitle {
+            font-size: 14px;
+            color: #8b7355;
+            font-style: italic;
+            margin-top: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-section {
+            margin-bottom: 40px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-description {
+            font-size: 13px;
+            color: #95a5a6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border: 2px solid #e8e8e8;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+        
+        .radio-option:hover {
+            border-color: #8b7355;
+            background: white;
+            transform: translateX(5px);
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #8b7355;
+        }
+        
+        .radio-option label {
+            cursor: pointer;
+            font-size: 15px;
+            color: #2c3e50;
+            flex: 1;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e8e8e8;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: 'Georgia', serif;
+            color: #2c3e50;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #8b7355;
+            background: white;
+            box-shadow: 0 0 10px rgba(139, 115, 85, 0.1);
+        }
+        
+        .submit-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e8e8e8;
+            text-align: center;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
+        }
+        
+        .note {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #7f8c8d;
+            border-top: 1px solid #e8e8e8;
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 25px;
+            }
+            
+            .header {
+                padding: 40px 25px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .intro-text p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="invitation-icon">🍷</div>
+            <h1>Invito Ufficiale</h1>
+            <p>Per la Spicy B</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro-text">
+                <h2>🐱 Cena con il Micio 🐱</h2>
+                <p>Invito ufficiale per la Spicy B per una cena con il micio per assaporare qualcosa di gustoso e bere qualcosa di buono (più di un bicchierino).</p>
+                <p class="intro-subtitle">⚠️ Sondaggio basato su diversi fattori (tra cui un probabile outfit)</p>
+            </div>
+            
+            <form id="dinnerForm">
+                <!-- Domanda 1: Tacchi -->
+                <div class="form-section">
+                    <label class="form-label">👠 Se l'outfit prevede i tacchi, dove saresti disposta a camminare?</label>
+                    <p class="form-description">Perché la location potrebbe richiedere... una certa resistenza fisica</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="asfalto" name="heels" value="asfalto">
+                            <label for="asfalto">Sopra strada asfaltata (easy mode)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="ciottoli" name="heels" value="ciottoli">
+                            <label for="ciottoli">Sopra ciottoli (medium difficulty)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="sterrata" name="heels" value="sterrata">
+                            <label for="sterrata">Sopra strada sterrata (hard mode)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="bolognini" name="heels" value="bolognini">
+                            <label for="bolognini">Sopra strada di bolognini (expert mode)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="sneakers" name="heels" value="sneakers">
+                            <label for="sneakers">Preferisco venire con le sneakers e vivere serena</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Domanda 2: Outfit -->
+                <div class="form-section">
+                    <label class="form-label">👗 Ci sono più probabilità che B metta:</label>
+                    <p class="form-description">Perché il micio vuole indovinare quanto sarai bona</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="gonna" name="outfit" value="gonna">
+                            <label for="gonna">Gonna (che figa)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="vestito" name="outfit" value="vestito">
+                            <label for="vestito">Vestito (che figa pt 2)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Domanda 2b: Copertura -->
+                <div class="form-section">
+                    <label class="form-label">🧥 Situazione copertura del corpo:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="accappatoio" name="coverage" value="accappatoio">
+                            <label for="accappatoio">Accappatoio</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="giubbotto" name="coverage" value="giubbotto">
+                            <label for="giubbotto">Altro giubbotto</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Domanda 3: Collant -->
+                <div class="form-section">
+                    <label class="form-label">🧦 Situazione gambe:</label>
+                    <p class="form-description">Importante per capire la tua sopravvivenza al freddo</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="collant" name="legs" value="collant">
+                            <label for="collant">Collant</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="senzacollant" name="legs" value="senzacollant">
+                            <label for="senzacollant">No senza collant soffro il freddo (TI SOFFRO B)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="calze" name="legs" value="calze">
+                            <label for="calze">Calze multicolor ben nascoste da Bianca ma strabelle</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Domanda 4: Tempo in macchina -->
+                <div class="form-section">
+                    <label class="form-label">🚗 Quanto tempo passeresti in macchina con il micio per raggiungere la destinazione:</label>
+                    <p class="form-description">Sii onesta, il micio sa guidare bene</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="time1" name="cartime" value="10min">
+                            <label for="time1">10 minuti</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time2" name="cartime" value="25min">
+                            <label for="time2">25 minuti</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time3" name="cartime" value="40min">
+                            <label for="time3">40 minuti</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time4" name="cartime" value="1ora">
+                            <label for="time4">1 ora</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time5" name="cartime" value="2ore">
+                            <label for="time5">2 ore</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time6" name="cartime" value="1giorno">
+                            <label for="time6">1 giorno e 5 ore</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Domanda 5: Zona -->
+                <div class="form-section">
+                    <label class="form-label">🧭 Sarebbe meglio andare:</label>
+                    <p class="form-description">Geografia e preferenze territoriali</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="sud" name="location" value="sud">
+                            <label for="sud">A sud del Po'</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="nord" name="location" value="nord">
+                            <label for="nord">A nord del Po'</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="casa" name="location" value="casa">
+                            <label for="casa">A casa al caldo non rompere con queste domande</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Domanda 6: Pesce -->
+                <div class="form-section">
+                    <label class="form-label">🐟 Ripeteresti abbuffata di pesce?</label>
+                    <p class="form-description">Oppure cambiamo registro?</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="carne" name="food" value="carne">
+                            <label for="carne">Forse, ma assaggerei più volentieri qualcosa di carne</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="si" name="food" value="si">
+                            <label for="si">Sì</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="no" name="food" value="no">
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Note -->
+                <div class="form-section">
+                    <label class="form-label">📝 Note aggiuntive (opzionale)</label>
+                    <p class="form-description">Qualsiasi altra informazione che potrebbe essere utile per organizzare la serata perfetta</p>
+                    <input type="text" class="form-input" placeholder="" name="notes">
+                </div>
+                
+                <!-- Submit -->
+                <div class="submit-section">
+                    <button type="button" class="submit-button" onclick="submitForm()">Invia Risposte</button>
+                    <p class="note">Le tue risposte mi aiuteranno a scegliere il posto perfetto 🎯</p>
+                </div>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>Grazie per aver completato il sondaggio!</p>
+            <p>Il micio ora ha tutte le informazioni necessarie per organizzare una serata indimenticabile. 🐱✨</p>
+        </div>
+    </div>
+    
+    <script>
+        function submitForm() {
+            // Raccogli i dati del form
+            const heels = document.querySelector('input[name="heels"]:checked');
+            const outfit = document.querySelector('input[name="outfit"]:checked');
+            const coverage = document.querySelector('input[name="coverage"]:checked');
+            const legs = document.querySelector('input[name="legs"]:checked');
+            const cartime = document.querySelector('input[name="cartime"]:checked');
+            const location = document.querySelector('input[name="location"]:checked');
+            const food = document.querySelector('input[name="food"]:checked');
+            const notes = document.querySelector('input[name="notes"]').value;
+            
+            // Verifica che i campi obbligatori siano compilati
+            if (!heels || !outfit || !coverage || !legs || !cartime || !location || !food) {
+                alert('Per favore completa tutte le domande prima di inviare!');
+                return;
+            }
+            
+            // Crea il messaggio per WhatsApp
+            let message = "Ho completato il sondaggio per la cena con il micio! 🍷\n\n";
+            message += "👠 Tacchi: " + heels.value + "\n";
+            message += "👗 Outfit: " + outfit.value + "\n";
+            message += "🧥 Copertura: " + coverage.value + "\n";
+            message += "🧦 Gambe: " + legs.value + "\n";
+            message += "🚗 Tempo in macchina: " + cartime.value + "\n";
+            message += "🧭 Zona: " + location.value + "\n";
+            message += "🐟 Pesce: " + food.value + "\n";
+            if (notes) message += "📝 Note: " + notes + "\n";
+            message += "\nIl micio può procedere con l'organizzazione! 🐱";
+            
+            // Codifica il messaggio per URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Apri WhatsApp
+            window.open(`https://wa.me/393345806938?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+</html>
